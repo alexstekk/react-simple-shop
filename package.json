@@ -1,7 +1,7 @@
 {
   "name": "react-simple-shop",
   "version": "0.1.0",
-  "home":"https://alexstekk.github.io/react-simple-shop/",
+  "homepage":"https://alexstekk.github.io/react-simple-shop/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
