@@ -21,7 +21,7 @@ function GoodsItem(props) {
 				<p className='card__description'>{displayDescription}</p>
 				<div className='card__action'>
 					<button
-						className='card__button'
+						className='card__button btn'
 						onClick={() => {
 							addToBasket({ mainId, displayName, regularPrice });
 						}}

@@ -119,7 +119,7 @@ a:hover {
 	gap: 0.5rem;
 	justify-content: space-between;
 }
-.card__button {
+.btn {
 	padding: 0.75rem 2rem;
 	border-radius: 5px;
 	font-size: 1rem;
@@ -165,6 +165,7 @@ a:hover {
 	overflow: hidden;
 	transition: background-color 0.3s ease-in-out 0s;
 	box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+	z-index: 5;
 }
 .cart:hover {
 	background-color: var(--secondary-color);
@@ -179,6 +180,19 @@ a:hover {
 	}
 }
 .cart__quantity {
+	position: absolute;
+	top: 0.5rem;
+	left: 0.5rem;
+	border-radius: 50%;
+	width: 1rem;
+	height: 1rem;
+	background-color: #fff;
+	color: #000;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 0.75rem;
+	font-weight: 700;
 }
 
 .basket {
@@ -193,8 +207,8 @@ a:hover {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	min-height: 15rem;
 	box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+	animation: showModal 300ms ease-in-out;
 }
 .basket__header {
 	font-size: 1.25rem;
@@ -223,6 +237,20 @@ a:hover {
 	background-color: var(--primary-color);
 	color: #fff;
 	padding: 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	flex-wrap: wrap;
+	gap: 1rem;
+}
+
+#total {
+	text-align: right;
+}
+
+.basket__footer p {
+	flex: 0 0 100%;
+	text-align: right;
 }
 
 .basket__item {
@@ -231,6 +259,96 @@ a:hover {
 	justify-content: space-between;
 }
 
+.basket__item > div {
+	display: flex;
+	align-items: center;
+	flex-grow: 1;
+	gap: 2rem;
+}
+
 .basket__delete-item {
 	cursor: pointer;
+}
+
+.basket__total {
+	min-width: 5rem;
+}
+
+.basket__quantity-btn {
+	font-size: 1.25rem;
+	padding: 0.3rem;
+	width: 2rem;
+	height: 2rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: unset;
+	border: 1px solid var(--primary-color);
+	border-radius: 5px;
+	cursor: pointer;
+	transition: all 0.3s ease-in-out;
+}
+
+.basket__quantity-btn:hover {
+	background-color: #dddddd;
+}
+
+.basket__quantity {
+	width: 2rem;
+	height: 2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.basket__name {
+	display: flex;
+	flex-grow: 1;
+}
+
+.basket__btn-group {
+	display: flex;
+}
+
+.basket__order-btn {
+	background-color: var(--secondary-color);
+	color: #fff;
+	transition: all 0.3s ease-in-out;
+}
+
+.basket__order-btn:hover {
+	opacity: 0.8;
+}
+
+.alert {
+	position: fixed;
+	top: 6rem;
+	right: 6rem;
+	background-color: var(--primary-color);
+	height: 60px;
+	border-radius: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #fff;
+	padding: 0 1rem;
+	animation: showModal 300ms ease-in-out;
+}
+
+@media (max-width: 767px) {
+	.alert {
+		top: unset;
+		bottom: 2rem;
+	}
+}
+.alert__body {
+}
+
+@keyframes showModal {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
