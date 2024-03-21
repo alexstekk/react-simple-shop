@@ -18,12 +18,32 @@ function Shop() {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				data.shop && setGoods(data.shop);
+				data.shop && setGoods(data.shop.slice(0, 5));
 				setIsLoading(false);
 			});
 	}, []);
 
-	const addToBasket = (item) => {};
+	const addToBasket = (item) => {
+		const existInOrderItemIndex = order.findIndex((orderItem) => item.mainId === orderItem.mainId);
+		if (existInOrderItemIndex < 0) {
+			setOrder([
+				...order,
+				{
+					...item,
+					quantity: 1,
+				},
+			]);
+		} else {
+			const updatedOrder = order.map((orderItem, index) => {
+				if (existInOrderItemIndex === index) {
+					return { ...orderItem, quantity: orderItem.quantity + 1 };
+				} else {
+					return orderItem;
+				}
+			});
+			setOrder(updatedOrder);
+		}
+	};
 	return (
 		<main className='main'>
 			<div className='main__container container'>

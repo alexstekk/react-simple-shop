@@ -169,6 +169,7 @@ a:hover {
 		bottom: unset;
 		top: 6rem;
 		cursor: pointer;
+		z-index: 5;
 	}
 }
 .cart__quantity {

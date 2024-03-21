@@ -12,7 +12,7 @@ function GoodsItem(props) {
 		<div className='card'>
 			<div className='card__img'>
 				<img
-					src={full_background === 'N/A' ? 'https://placehold.co/400x400?text=No+image' : full_background}
+					src={full_background ? full_background : 'https://placehold.co/400x400?text=No+image'}
 					alt={displayName}
 				/>
 			</div>
