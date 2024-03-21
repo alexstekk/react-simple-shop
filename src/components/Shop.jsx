@@ -7,12 +7,18 @@ import { Cart } from './Cart';
 import { BasketList } from './BasketList';
 import { Alert } from './Alert';
 
+const getLocalOrder = () => {
+	return localStorage.getItem('order') ? JSON.parse(localStorage.getItem('order')) : [];
+};
+
 function Shop() {
 	const [goods, setGoods] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
-	const [order, setOrder] = useState([]);
+	const [order, setOrder] = useState(getLocalOrder);
 	const [isBasketShow, setIsBasketShow] = useState(false);
 	const [alertName, setAlertName] = useState('');
+
+	
 
 	useEffect(() => {
 		fetch(API_URL, {
@@ -89,6 +95,10 @@ function Shop() {
 			}, [])
 		);
 	};
+
+	useEffect(() => {
+		localStorage.setItem('order', JSON.stringify(order));
+	}, [order]);
 
 	return (
 		<main className='main'>
