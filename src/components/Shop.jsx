@@ -22,7 +22,7 @@ function Shop() {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				data.shop && setGoods(data.shop.slice(0, 5));
+				data.shop && setGoods(data.shop);
 				setIsLoading(false);
 			});
 	}, []);
