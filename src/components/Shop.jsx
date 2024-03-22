@@ -19,7 +19,7 @@ function Shop() {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				setGoods(data.shop.slice(0, 5));
+				setGoods(data.shop);
 			});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);

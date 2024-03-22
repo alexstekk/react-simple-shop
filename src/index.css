@@ -118,6 +118,7 @@ a:hover {
 	align-items: center;
 	gap: 0.5rem;
 	justify-content: space-between;
+	padding-top: 1rem;
 }
 .btn {
 	padding: 0.75rem 2rem;
