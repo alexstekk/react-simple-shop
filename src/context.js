@@ -10,7 +10,7 @@ const getLocalOrder = () => {
 const initialState = {
 	goods: [],
 	isLoading: true,
-	order: [],
+	order: getLocalOrder(),
 	isBasketShow: false,
 	alertName: '',
 };

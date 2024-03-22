@@ -8,10 +8,6 @@ import { Cart } from './Cart';
 import { BasketList } from './BasketList';
 import { Alert } from './Alert';
 
-const getLocalOrder = () => {
-	return localStorage.getItem('order') ? JSON.parse(localStorage.getItem('order')) : [];
-};
-
 function Shop() {
 	const { setGoods, isLoading, order, isBasketShow, alertName } = useContext(ShopContext);
 
@@ -28,10 +24,6 @@ function Shop() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	const totalQuantityInCart = order.reduce((quantity, item) => {
-		return quantity + item.quantity;
-	}, 0);
-
 	useEffect(() => {
 		localStorage.setItem('order', JSON.stringify(order));
 	}, [order]);
@@ -39,7 +31,7 @@ function Shop() {
 	return (
 		<main className='main'>
 			<div className='main__container container'>
-				<Cart quantity={totalQuantityInCart} />
+				<Cart />
 				{isLoading ? <Preloader /> : <GoodList />}
 				{isBasketShow && <BasketList />}
 				{alertName && <Alert />}

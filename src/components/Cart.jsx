@@ -2,14 +2,17 @@ import { useContext } from 'react';
 import { ShopContext } from '../context';
 
 function Cart() {
-	const { quantity, handleBasketShow } = useContext(ShopContext);
+	const { order, handleBasketShow } = useContext(ShopContext);
+	const totalQuantityInCart = order.reduce((quantity, item) => {
+		return quantity + item.quantity;
+	}, 0);
 	return (
 		<div
 			className='cart'
 			onClick={handleBasketShow}
 		>
 			<i className='material-icons'>shopping_cart</i>
-			{quantity ? <span className='cart__quantity'>{quantity}</span> : null}
+			{totalQuantityInCart ? <span className='cart__quantity'>{totalQuantityInCart}</span> : null}
 		</div>
 	);
 }
