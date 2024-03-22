@@ -1,12 +1,18 @@
 export function reducer(state, { type, payload }) {
 	switch (type) {
+		case 'SET_GOODS':
+			return {
+				...state,
+				goods: payload || [],
+				isLoading: false,
+			};
 		case 'CLOSE_ALERT':
 			return {
 				...state,
 				alertName: '',
 			};
 		case 'ADD_TO_BASKET': {
-			const existInOrderItemIndex = state.order.findIndex((orderItem) => payload.item.mainId === orderItem.mainId);
+			const existInOrderItemIndex = state.order.findIndex((orderItem) => payload.mainId === orderItem.mainId);
 
 			let updatedOrder = null;
 

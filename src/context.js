@@ -10,7 +10,7 @@ const getLocalOrder = () => {
 const initialState = {
 	goods: [],
 	isLoading: true,
-	order: getLocalOrder(),
+	order: [],
 	isBasketShow: false,
 	alertName: '',
 };
@@ -40,6 +40,10 @@ export const ContextProvider = ({ children }) => {
 	value.decQuantity = (id) => {
 		dispatch({ type: 'DECREASE_QUANTITY', payload: { mainId: id } });
 	};
+
+	value.setGoods = (data) => {
+		dispatch({type:'SET_GOODS', payload: data})
+	}
 
 	return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;
 };

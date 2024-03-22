@@ -1,6 +1,8 @@
 import { BasketItem } from './BasketItem';
-function BasketList(props) {
-	const { order, handleBasketShow, removeFromBasket, incQuantity, decQuantity } = props;
+import { useContext } from 'react';
+import { ShopContext } from '../context';
+function BasketList() {
+	const { order, handleBasketShow } = useContext(ShopContext);
 
 	const totalSum = order.reduce((sum, el) => {
 		return sum + el.regularPrice * el.quantity;
@@ -23,9 +25,6 @@ function BasketList(props) {
 						{order.map((item) => (
 							<BasketItem
 								key={item.mainId}
-								removeFromBasket={removeFromBasket}
-								incQuantity={incQuantity}
-								decQuantity={decQuantity}
 								{...item}
 							/>
 						))}

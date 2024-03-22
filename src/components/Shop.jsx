@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useContext } from 'react';
 import { API_KEY, API_URL } from '../config';
+import { ShopContext } from '../context';
 
 import { Preloader } from './Preloader';
 import { GoodList } from './GoodsList';
@@ -12,11 +13,7 @@ const getLocalOrder = () => {
 };
 
 function Shop() {
-	const [goods, setGoods] = useState([]);
-	const [isLoading, setIsLoading] = useState(true);
-	const [order, setOrder] = useState(getLocalOrder);
-	const [isBasketShow, setIsBasketShow] = useState(false);
-	const [alertName, setAlertName] = useState('');
+	const { setGoods, isLoading, order, isBasketShow, alertName } = useContext(ShopContext);
 
 	useEffect(() => {
 		fetch(API_URL, {
@@ -26,73 +23,14 @@ function Shop() {
 		})
 			.then((response) => response.json())
 			.then((data) => {
-				data.shop && setGoods(data.shop);
-				setIsLoading(false);
+				setGoods(data.shop.slice(0, 5));
 			});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-
-	const handleBasketShow = () => {
-		setIsBasketShow(!isBasketShow);
-	};
 
 	const totalQuantityInCart = order.reduce((quantity, item) => {
 		return quantity + item.quantity;
 	}, 0);
-
-	const removeFromBasket = (id) => {
-		setOrder(order.filter((item) => item.mainId !== id));
-	};
-
-	const closeAlert = () => {
-		setAlertName('');
-	};
-	const addToBasket = (item) => {
-		const existInOrderItemIndex = order.findIndex((orderItem) => item.mainId === orderItem.mainId);
-		if (existInOrderItemIndex < 0) {
-			setOrder([
-				...order,
-				{
-					...item,
-					quantity: 1,
-				},
-			]);
-		} else {
-			const updatedOrder = order.map((orderItem, index) => {
-				if (existInOrderItemIndex === index) {
-					return { ...orderItem, quantity: orderItem.quantity + 1 };
-				} else {
-					return orderItem;
-				}
-			});
-			setOrder(updatedOrder);
-		}
-		setAlertName(item.displayName);
-	};
-
-	const incQuantity = (id) => {
-		setOrder(
-			order.map((item) => {
-				if (item.mainId === id) {
-					return { ...item, quantity: item.quantity + 1 };
-				} else {
-					return item;
-				}
-			})
-		);
-	};
-	const decQuantity = (id) => {
-		setOrder(
-			order.reduce((arr, item) => {
-				if (item.mainId === id) {
-					item = { ...item, quantity: item.quantity - 1 };
-				}
-				if (item.quantity) {
-					arr = [...arr, item];
-				}
-				return arr;
-			}, [])
-		);
-	};
 
 	useEffect(() => {
 		localStorage.setItem('order', JSON.stringify(order));
@@ -101,34 +39,10 @@ function Shop() {
 	return (
 		<main className='main'>
 			<div className='main__container container'>
-				<Cart
-					quantity={totalQuantityInCart}
-					handleBasketShow={handleBasketShow}
-				/>
-				{isLoading ? (
-					<Preloader />
-				) : (
-					<GoodList
-						goods={goods}
-						addToBasket={addToBasket}
-					/>
-				)}
-				{isBasketShow && (
-					<BasketList
-						order={order}
-						handleBasketShow={handleBasketShow}
-						removeFromBasket={removeFromBasket}
-						incQuantity={incQuantity}
-						decQuantity={decQuantity}
-					/>
-				)}
-				{alertName && (
-					<Alert
-						name={alertName}
-						closeAlert={closeAlert}
-						handleBasketShow={handleBasketShow}
-					/>
-				)}
+				<Cart quantity={totalQuantityInCart} />
+				{isLoading ? <Preloader /> : <GoodList />}
+				{isBasketShow && <BasketList />}
+				{alertName && <Alert />}
 			</div>
 		</main>
 	);
