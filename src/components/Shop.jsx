@@ -18,8 +18,6 @@ function Shop() {
 	const [isBasketShow, setIsBasketShow] = useState(false);
 	const [alertName, setAlertName] = useState('');
 
-	
-
 	useEffect(() => {
 		fetch(API_URL, {
 			headers: {
